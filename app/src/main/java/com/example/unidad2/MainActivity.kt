@@ -15,7 +15,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -29,13 +34,13 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContent {}
+        setContent { CampoRellenable() }
     }
 }
 
 
 
-@Preview(showBackground = true)
+//@Preview(showBackground = true)
 @Composable
 fun Pizzeria(nombre: String = "La Capra della tua Mamma", direccion: String = "C/Patata Cocida 69", descripcion: String = "Vieni qua, piccolo cicio bombo!") {
     Column {
@@ -65,36 +70,43 @@ fun Pizzeria(nombre: String = "La Capra della tua Mamma", direccion: String = "C
         }
     }
 
+
 @Composable
+
 fun DetallesPedido(id: Int, fecha: LocalDateTime, precioTotal: Float) {
     Column {
 
         Text(
             text = "Detalles Pedido",
-            textAlign = TextAlign.Center
-        )
-
-        Text(
-            text = "Pedido ID: $id",
-            textAlign = TextAlign.Left,
-            modifier = Modifier.fillMaxWidth().padding(16.dp)
-        )
-
-
-        Text(
-            text = "$fecha",
-            textAlign = TextAlign.Right,
+            textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth()
         )
+
+        Row (horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier.fillMaxWidth().padding(bottom = 50.dp)) {
+            Text(
+                text = "Pedido ID: $id",
+                textAlign = TextAlign.Left,
+
+            )
+
+            Text(
+                text = "$fecha",
+                textAlign = TextAlign.Left,
+
+            )
+        }
+
         Text(
-            text = "$precioTotal",
+            text = "Precio Total: $precioTotal $",
             textAlign = TextAlign.Right,
             modifier = Modifier.fillMaxWidth()
         )
 
         Row (horizontalArrangement = Arrangement.Center,
             modifier = Modifier.fillMaxWidth()) {
-            Button(onClick = {}) { Text("Cancelar Pedido")}
+            Button(onClick = {},
+                modifier = Modifier.padding(end = 20.dp)) { Text("Cancelar Pedido")}
             Button(onClick = {}) { Text("Confirmar Pedido")}
         }
     }
@@ -102,16 +114,25 @@ fun DetallesPedido(id: Int, fecha: LocalDateTime, precioTotal: Float) {
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-
-
-
 @Preview(showBackground = true)
-fun GPantallaPrincipal() {
-        Pizzeria(nombre = "La Capra della tua Mamma",
+fun PantallaPrincipal() {
+        /*Pizzeria(nombre = "La Capra della tua Mamma",
             direccion = "C/Patata Cocida 69",
-            descripcion = "Vieni qua, piccolo cicio bombo!")
+            descripcion = "Vieni qua, piccolo cicio bombo!")*/
 
         DetallesPedido(id = 2,
             fecha = LocalDateTime.now(),
             precioTotal = 254f)
+}
+
+@Composable
+@Preview(showBackground = true)
+fun CampoRellenable() {
+    var texto by remember { mutableStateOf("") }
+    TextField(
+        modifier = Modifier.padding(24.dp),
+        value = texto,
+        onValueChange = { newText -> texto = newText },
+        label = { Text("Texto") }
+    )
 }
