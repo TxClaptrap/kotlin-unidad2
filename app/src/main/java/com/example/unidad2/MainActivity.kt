@@ -72,7 +72,6 @@ fun Pizzeria(nombre: String = "La Capra della tua Mamma", direccion: String = "C
 
 
 @Composable
-
 fun DetallesPedido(id: Int, fecha: LocalDateTime, precioTotal: Float) {
     Column {
 
