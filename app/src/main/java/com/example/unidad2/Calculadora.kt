@@ -3,7 +3,7 @@ package com.example.unidad2
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
+//import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 class Calculadora : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        //enableEdgeToEdge()
         setContent { CampoRellenable() }
     }
 }
@@ -28,7 +28,7 @@ class Calculadora : ComponentActivity() {
 
 
 //@Preview(showBackground = true)
-@Composable
+@Composable //Los @Composable empiezan siempre con Mayúscula
 fun Calculatron() {
     Column (modifier = Modifier.fillMaxHeight()) {
         Row (horizontalArrangement = Arrangement.End,
@@ -40,34 +40,30 @@ fun Calculatron() {
         }
 
         Column (verticalArrangement = Arrangement.Bottom, modifier = Modifier.fillMaxHeight()) {
-            Row (horizontalArrangement = Arrangement.spacedBy(8.dp),
-                modifier = Modifier.fillMaxWidth().padding(10.dp)) {
-                for (numero in listOf("7", "8", "9", "/"))
-                    Button(onClick = {}, modifier = Modifier.weight(1f)) { Text(numero) }
-            }
-            Row (horizontalArrangement = Arrangement.spacedBy(8.dp),
-                modifier = Modifier.fillMaxWidth().padding(10.dp)) {
-                for (numero in listOf("4", "5", "6", "*"))
-                    Button(onClick = {}, modifier = Modifier.weight(1f)) { Text(numero) }
-            }
-            Row (horizontalArrangement = Arrangement.spacedBy(8.dp),
-                modifier = Modifier.fillMaxWidth().padding(10.dp)) {
-                for (numero in listOf("1", "2", "3", "-"))
-                    Button(onClick = {}, modifier = Modifier.weight(1f)) { Text(numero) }
-            }
-            Row (horizontalArrangement = Arrangement.spacedBy(8.dp),
-                modifier = Modifier.fillMaxWidth().padding(10.dp)) {
-                for (numero in listOf("C", "0", "=", "+"))
-                    Button(onClick = {}, modifier = Modifier.weight(1f)) { Text(numero) }
-            }
-        }
+            FilaBotones(listOf("7", "8", "9", "/"))
+            FilaBotones(listOf("4", "5", "6", "*"))
+            FilaBotones(listOf("1", "2", "3", "-"))
+            FilaBotones(listOf("C", "0", "=", "+"))
 
+        }
     }
 }
 
 @Composable
+fun FilaBotones(botones: List<String>) {
+        Row (horizontalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier.fillMaxWidth().padding(10.dp)) {
+            botones.forEach { numero ->
+                Button(onClick = {}, modifier = Modifier.weight(1f)) { Text(numero) }
+            }
+            /*for (numero in botones)
+                Button(onClick = {}, modifier = Modifier.weight(1f)) { Text(numero) }*/
+        }
+}
+
+@Composable
 @Preview(showBackground = true)
-fun Patallica() {
+fun Pantallica() {
 
     Calculatron()
 }
