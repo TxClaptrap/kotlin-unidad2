@@ -10,3 +10,4 @@ class TextViewModel: ViewModel() {
         apellido.value = newTexto
     }
 }
+
